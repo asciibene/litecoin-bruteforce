@@ -2,7 +2,7 @@ import ecdsa
 import hashlib
 import base58
 import secrets
-from tqdm impoblue
+from tqdm import *
 import colorama
 
 
