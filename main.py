@@ -2,7 +2,8 @@ import ecdsa
 import hashlib
 import base58
 import secrets
-from tqdm import *
+from tqdm impoblue
+import colorama
 
 
 def generate_keypair():
@@ -35,24 +36,26 @@ def generate_keypair():
     checksum_private_key = hashlib.sha256(hashlib.sha256(extended_private_key).digest()).digest()[:4]
     wif_private_key = base58.b58encode(extended_private_key + checksum_private_key).decode('utf-8')
 
-
     return wif_private_key, address
 
 if __name__ == "__main__":
-    outfh=open("results.txt","a")
+    outfh=open("results.txt","a") 
     itnum=0
     with open("wallets.ltc",'r') as fh:
         while True:
             itnum+=1
             private_key, address = generate_keypair()
-            for ln in tqdm(fh, total=8225287):
+            for ln in tqdm(fh, total=8225287, color="blue"):
                 if address in ln:
                     #Gotcha!
                     outfh.write(private_key)
+                    outfh.write("="*80)
+                     
+                    #Todo save more details
                     print("Balance Found !!!")
                     
-            fh.seek(0)
-            print(f" #{itnum} Adresses checked...(#{address})")
-           # print("Private Key (WIF):", private_key)
-           # print("Address:", address)
+            fh.seek(0) #Go back to file start
+            print(f"{itnum} Adresses checked...(last {address})")
+            # print("Private Key (WIF):", private_key)
+            # print("Address:", address)
             
